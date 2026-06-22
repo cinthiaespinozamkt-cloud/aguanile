@@ -1,0 +1,784 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aguanilé — Taller de Cumbia Colombiana</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+/* ============ TOKENS ============ */
+:root{
+  --violeta:#9681c7;
+  --verde:#33a87e;
+  --lila:#e7ccfb;
+  --lima:#d9f17e;
+  --negro:#000000;
+  --crema:#fef8ec;
+  --crema-2:#f5ecd8;
+  --violeta-deep:#7a64ab;
+  --verde-deep:#268a66;
+  --max-w:1180px;
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  background:var(--crema);
+  color:var(--negro);
+  font-family:'Poppins',sans-serif;
+  font-weight:400;
+  line-height:1.6;
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+img{max-width:100%;display:block;}
+.wrap{max-width:var(--max-w);margin:0 auto;padding:0 28px;}
+h1,h2,h3,h4{
+  font-family:'Anton',sans-serif;
+  font-weight:400;
+  text-transform:uppercase;
+  letter-spacing:0.01em;
+  line-height:0.98;
+}
+a{color:inherit;text-decoration:none;}
+.eyebrow{
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  letter-spacing:0.18em;
+  text-transform:uppercase;
+  font-size:0.72rem;
+}
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:0.01ms !important; animation-iteration-count:1 !important; transition-duration:0.01ms !important; scroll-behavior:auto !important;}
+}
+
+/* ============ BOTONES ============ */
+.btn{
+  display:inline-flex;
+  align-items:center;
+  gap:10px;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:1.02rem;
+  padding:17px 34px;
+  border-radius:100px;
+  border:2.5px solid var(--negro);
+  background:var(--lima);
+  color:var(--negro);
+  cursor:pointer;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1), box-shadow .25s ease, background .25s ease;
+  box-shadow:5px 5px 0 var(--negro);
+}
+.btn:hover{
+  transform:translate(-2px,-2px);
+  box-shadow:7px 7px 0 var(--negro);
+  background:var(--verde);
+}
+.btn:active{transform:translate(0,0); box-shadow:2px 2px 0 var(--negro);}
+.btn:focus-visible{outline:3px solid var(--violeta); outline-offset:3px;}
+
+/* ============ NAV ============ */
+.nav{
+  position:fixed; top:0; left:0; right:0; z-index:50;
+  background:rgba(254,248,236,0.88);
+  backdrop-filter:blur(10px);
+  border-bottom:2px solid rgba(0,0,0,0.08);
+}
+.nav-inner{
+  max-width:var(--max-w); margin:0 auto; padding:16px 28px;
+  display:flex; align-items:center; justify-content:space-between;
+}
+.logo{
+  font-family:'Anton',sans-serif;
+  font-size:1.3rem;
+  letter-spacing:0.04em;
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.logo .dot{width:9px;height:9px;border-radius:50%;background:var(--violeta);display:inline-block;}
+.nav-cta{font-size:0.92rem; padding:11px 22px;}
+
+/* ============ HERO ============ */
+.hero{
+  position:relative;
+  padding:150px 0 90px;
+  background:var(--crema);
+  overflow:hidden;
+}
+.hero-blob{
+  position:absolute;
+  border-radius:50%;
+  opacity:0.55;
+  z-index:0;
+}
+.hero .b1{width:480px;height:480px;background:var(--lila);top:-220px;right:-160px;}
+.hero .b2{width:300px;height:300px;background:var(--lima);bottom:-140px;left:-100px;opacity:0.6;}
+.hero-grid{
+  position:relative;
+  z-index:2;
+  display:grid;
+  grid-template-columns:1.05fr 0.95fr;
+  gap:48px;
+  align-items:center;
+}
+.hero-eyebrow{
+  color:var(--violeta-deep);
+  margin-bottom:18px;
+}
+.hero h1{
+  font-size:clamp(2.5rem, 5.2vw, 4.4rem);
+  margin-bottom:22px;
+}
+.hero h1 .accent{color:var(--verde-deep);}
+.hero p.lead{
+  font-size:1.18rem;
+  max-width:480px;
+  margin-bottom:34px;
+  color:#1c1c1c;
+  font-weight:500;
+}
+.hero-actions{display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
+.hero-note{font-size:0.88rem; font-weight:500; color:var(--verde-deep);}
+
+/* Visual del hero: foto protagonista enmarcada en forma orgánica */
+.hero-visual{position:relative; aspect-ratio:1/1;}
+.hero-frame{
+  position:absolute; inset:0;
+  border-radius:46% 54% 58% 42% / 50% 44% 56% 50%;
+  background:var(--violeta-deep);
+  box-shadow:14px 18px 0 rgba(0,0,0,0.9);
+  overflow:hidden;
+}
+.hero-frame img{
+  position:absolute; inset:0;
+  width:100%; height:100%;
+  object-fit:cover;
+  object-position:center 30%;
+}
+.hero-frame::after{
+  content:"";
+  position:absolute; inset:0;
+  background:linear-gradient(195deg, rgba(150,129,199,0.30) 0%, rgba(0,0,0,0.16) 100%);
+  z-index:2;
+}
+.hero-frame .ring-outline{
+  position:absolute; inset:6%;
+  border:2px solid rgba(255,255,255,0.4);
+  border-radius:50%;
+  z-index:3;
+}
+.hero-tag{
+  position:absolute;
+  bottom:-22px; right:-14px;
+  background:var(--lima);
+  color:var(--negro);
+  border:2.5px solid var(--negro);
+  border-radius:50%;
+  width:128px;height:128px;
+  display:flex; align-items:center; justify-content:center;
+  text-align:center;
+  font-family:'Anton',sans-serif;
+  font-size:0.9rem;
+  line-height:1.15;
+  transform:rotate(-9deg);
+  box-shadow:6px 6px 0 var(--negro);
+  z-index:4;
+  padding:8px;
+}
+
+@media (max-width:880px){
+  .hero-grid{grid-template-columns:1fr; gap:56px;}
+  .hero-visual{max-width:340px; margin:0 auto;}
+  .hero{padding-top:128px;}
+}
+
+/* ============ SECCIONES GENERALES ============ */
+.section{padding:96px 0;}
+.section-head{max-width:680px; margin-bottom:56px;}
+.section-head.center{margin-left:auto; margin-right:auto; text-align:center;}
+.section-head .eyebrow{margin-bottom:14px;}
+.section-head h2{font-size:clamp(2rem, 4vw, 3rem); margin-bottom:18px;}
+.section-head p{font-size:1.08rem; max-width:560px;}
+.section-head.center p{margin:0 auto;}
+
+/* ============ DUDA → TRANSFORMACIÓN (signature) ============ */
+.transformacion{
+  background:var(--negro);
+  color:var(--crema);
+  position:relative;
+}
+.transformacion .section-head.center .eyebrow{color:var(--lila);}
+.transformacion .section-head.center h2{color:var(--crema);}
+.duda-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+  margin-bottom:14px;
+}
+.duda-card{
+  background:rgba(254,248,236,0.07);
+  border:1.5px solid rgba(254,248,236,0.18);
+  border-radius:20px;
+  padding:28px 22px;
+  text-align:center;
+}
+.duda-card .dico{font-size:1.7rem; display:block; margin-bottom:14px; opacity:0.7;}
+.duda-card p{font-style:italic; font-weight:500; font-size:0.98rem; color:rgba(254,248,236,0.75);}
+
+.giro{
+  text-align:center;
+  padding:54px 0 40px;
+  position:relative;
+}
+.giro-line{
+  display:inline-flex; align-items:center; gap:18px;
+  font-family:'Anton',sans-serif;
+  font-size:clamp(1.3rem,2.6vw,1.9rem);
+  color:var(--lima);
+}
+.giro-line svg{width:46px; height:24px;}
+
+.transf-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+.transf-card{
+  border-radius:22px;
+  padding:30px 24px;
+  text-align:center;
+  color:var(--negro);
+}
+.transf-card:nth-child(1){background:var(--lima);}
+.transf-card:nth-child(2){background:var(--lila);}
+.transf-card:nth-child(3){background:var(--crema);}
+.transf-card:nth-child(4){background:var(--verde); color:var(--crema);}
+.transf-card .tico{font-size:1.7rem; display:block; margin-bottom:14px;}
+.transf-card p{font-weight:600; font-size:0.98rem;}
+@media (max-width:900px){.duda-grid,.transf-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.duda-grid,.transf-grid{grid-template-columns:1fr;}}
+
+/* ============ DESDE CERO ============ */
+.desdecero{
+  background:var(--crema-2);
+  text-align:center;
+}
+.desdecero .section-head.center{max-width:720px;}
+.desdecero-note{
+  display:inline-block;
+  margin-top:8px;
+  background:var(--negro);
+  color:var(--crema);
+  font-weight:600;
+  font-size:1.05rem;
+  padding:18px 32px;
+  border-radius:100px;
+}
+.desdecero-note strong{color:var(--lima);}
+
+/* ============ QUÉ VAS A VIVIR ============ */
+.vivir-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px;
+}
+.vivir-card{
+  border:2px solid var(--negro);
+  border-radius:24px;
+  padding:32px 26px;
+  background:var(--crema);
+  transition:transform .25s ease;
+}
+.vivir-card:hover{transform:translateY(-5px) rotate(-0.3deg);}
+.vivir-card:nth-child(1){background:var(--lila);}
+.vivir-card:nth-child(3){background:var(--lima);}
+.vivir-card:nth-child(5){background:var(--violeta); color:var(--crema);}
+.vivir-card .vico{font-size:2rem; display:block; margin-bottom:14px;}
+.vivir-card h4{font-family:'Poppins',sans-serif; font-weight:600; text-transform:none; font-size:1.08rem; letter-spacing:0; margin-bottom:6px;}
+.vivir-card p{font-size:0.9rem;}
+.vivir-card:nth-child(5) p{color:rgba(254,248,236,0.85);}
+@media (max-width:900px){.vivir-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.vivir-grid{grid-template-columns:1fr;}}
+
+/* ============ ESPACIO PARA MUJERES Y DISIDENCIAS ============ */
+.espacio{
+  background:var(--violeta);
+  color:var(--crema);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.espacio::before{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 15% 25%, rgba(255,255,255,0.1), transparent 42%), radial-gradient(circle at 85% 75%, rgba(255,255,255,0.1), transparent 42%);
+}
+.espacio-inner{position:relative; z-index:2;}
+.espacio .eyebrow{color:var(--lima); display:block; margin-bottom:18px;}
+.espacio h2{
+  font-size:clamp(2rem, 4.2vw, 3.2rem);
+  max-width:720px;
+  margin:0 auto 26px;
+}
+.espacio p.lead-esp{
+  font-size:1.14rem;
+  max-width:580px;
+  margin:0 auto;
+  color:rgba(254,248,236,0.88);
+  font-weight:500;
+}
+.espacio-tags{
+  margin-top:38px;
+  display:flex; flex-wrap:wrap; justify-content:center; gap:12px;
+}
+.espacio-tags span{
+  background:rgba(254,248,236,0.12);
+  border:1.5px solid rgba(254,248,236,0.35);
+  border-radius:100px;
+  padding:10px 20px;
+  font-size:0.88rem;
+  font-weight:500;
+}
+
+/* ============ ESTE TALLER ES PARA VOS SI ============ */
+.paravos{background:var(--crema);}
+.paravos-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:18px;
+}
+.paravos-item{
+  display:flex;
+  align-items:flex-start;
+  gap:16px;
+  padding:24px;
+  border-bottom:2px dashed rgba(0,0,0,0.25);
+}
+.paravos-item .star{font-size:1.4rem; flex-shrink:0; margin-top:2px;}
+.paravos-item p{font-weight:500; font-size:1.04rem;}
+@media (max-width:780px){.paravos-grid{grid-template-columns:1fr;}}
+
+/* ============ INFO DEL TALLER ============ */
+.info-block{background:var(--crema-2);}
+.info-card{
+  background:var(--crema);
+  border:2.5px solid var(--negro);
+  border-radius:32px;
+  padding:52px 44px;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:40px;
+}
+.info-col h3{font-size:1.05rem; font-family:'Poppins',sans-serif; text-transform:uppercase; letter-spacing:0.1em; font-weight:600; color:var(--violeta-deep); margin-bottom:22px;}
+.info-row{display:flex; align-items:flex-start; gap:14px; margin-bottom:20px;}
+.info-row .ic{font-size:1.5rem;}
+.info-row p{font-weight:600; font-size:1.08rem;}
+.info-row span{display:block; font-weight:400; font-size:0.88rem; color:#444; margin-top:2px;}
+.info-extra{
+  display:flex; flex-direction:column; gap:14px; justify-content:center;
+}
+.pill-info{
+  background:var(--lila);
+  border-radius:16px;
+  padding:16px 18px;
+  font-weight:500;
+  font-size:0.98rem;
+  display:flex; align-items:center; gap:12px;
+}
+.pill-info:nth-child(2){background:var(--lima);}
+@media (max-width:780px){.info-card{grid-template-columns:1fr; padding:36px 26px;}}
+
+.pago-card{
+  background:var(--negro);
+  color:var(--crema);
+  border-radius:32px;
+  padding:48px 44px;
+  margin-top:24px;
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:36px;
+  align-items:center;
+}
+.pago-col h3{
+  font-size:1.05rem; font-family:'Poppins',sans-serif; text-transform:uppercase;
+  letter-spacing:0.1em; font-weight:600; color:var(--lima); margin-bottom:22px;
+}
+.precio-row{
+  display:flex; align-items:baseline; justify-content:space-between;
+  gap:16px;
+  padding:16px 0;
+  border-bottom:2px dashed rgba(254,248,236,0.22);
+}
+.precio-row:last-child{border-bottom:none;}
+.precio-row .plabel{font-weight:600; font-size:1rem;}
+.precio-row .plabel span{display:block; font-weight:400; font-size:0.82rem; color:rgba(254,248,236,0.65); margin-top:2px;}
+.precio-row .pamount{font-family:'Anton',sans-serif; font-size:1.5rem; color:var(--lima); white-space:nowrap;}
+.banco-box{
+  background:rgba(254,248,236,0.06);
+  border-radius:20px;
+  padding:26px 28px;
+}
+.banco-box .blabel{
+  font-size:0.78rem; text-transform:uppercase; letter-spacing:0.1em; font-weight:600;
+  color:var(--lima); display:block; margin-bottom:4px;
+}
+.banco-box .bvalue{font-weight:600; font-size:1rem; margin-bottom:16px; word-break:break-word; color:var(--crema);}
+.banco-box .bvalue:last-child{margin-bottom:0;}
+.pago-col.pago-note-col{
+  background:rgba(254,248,236,0.06);
+  border-radius:20px;
+  padding:28px 26px;
+  text-align:center;
+}
+.pago-col.pago-note-col p{font-weight:600; font-size:1rem; margin-bottom:18px; line-height:1.5;}
+.pago-col.pago-note-col .btn{background:var(--lima); width:100%; justify-content:center;}
+@media (max-width:780px){.pago-card{grid-template-columns:1fr; padding:34px 26px;}}
+
+/* ============ FAQ ============ */
+.faq-list{max-width:760px; margin:0 auto;}
+.faq-item{
+  border-bottom:2.5px solid var(--negro);
+}
+.faq-q{
+  width:100%;
+  text-align:left;
+  background:none;
+  border:none;
+  font-family:'Poppins',sans-serif;
+  font-weight:600;
+  font-size:1.1rem;
+  padding:26px 0;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  cursor:pointer;
+  color:var(--negro);
+  gap:20px;
+}
+.faq-q .plus{
+  font-family:'Anton',sans-serif;
+  font-size:1.5rem;
+  flex-shrink:0;
+  width:34px; height:34px;
+  border-radius:50%;
+  border:2px solid var(--negro);
+  display:flex; align-items:center; justify-content:center;
+  transition:transform .3s ease, background .3s ease;
+}
+.faq-item.open .faq-q .plus{transform:rotate(45deg); background:var(--lima);}
+.faq-a{
+  max-height:0;
+  overflow:hidden;
+  transition:max-height .35s ease;
+}
+.faq-a p{padding:0 0 26px; max-width:640px; font-size:0.98rem; color:#333;}
+.faq-q:focus-visible{outline:3px solid var(--violeta); outline-offset:4px;}
+
+/* ============ CTA FINAL ============ */
+.cta-final{
+  background:linear-gradient(155deg, var(--verde) 0%, var(--verde-deep) 100%);
+  color:var(--crema);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+  padding:110px 0 120px;
+}
+.cta-final::before{
+  content:"";
+  position:absolute; inset:0;
+  background:radial-gradient(circle at 80% 20%, rgba(255,255,255,0.12), transparent 45%);
+}
+.cta-inner{position:relative; z-index:2;}
+.cta-final h2{
+  font-size:clamp(2rem, 4.4vw, 3.4rem);
+  max-width:740px;
+  margin:0 auto 30px;
+  line-height:1.1;
+}
+.cta-final .btn{
+  background:var(--crema);
+  font-size:1.12rem;
+  padding:20px 42px;
+}
+.cta-final .btn:hover{background:var(--lima);}
+.cta-cupos{
+  margin-top:22px;
+  font-weight:600;
+  letter-spacing:0.05em;
+  font-size:0.92rem;
+  text-transform:uppercase;
+  display:inline-flex; align-items:center; gap:8px;
+}
+.cta-cupos::before{content:"●"; color:var(--lima); animation:pulse 1.6s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1;} 50%{opacity:0.3;}}
+
+/* ============ FOOTER ============ */
+footer{
+  background:var(--negro);
+  color:var(--crema);
+  padding:40px 0;
+  text-align:center;
+}
+footer .logo{justify-content:center; margin-bottom:8px;}
+footer p{font-size:0.85rem; color:rgba(254,248,236,0.6);}
+
+/* ============ REVEAL ON SCROLL ============ */
+.reveal{opacity:0; transform:translateY(24px); transition:opacity .7s ease, transform .7s ease;}
+.reveal.in{opacity:1; transform:translateY(0);}
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="logo"><span class="dot"></span>AGUANILÉ</div>
+    <a href="https://wa.link/h29vdd" target="_blank" rel="noopener" class="btn nav-cta">Quiero sumarme</a>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="hero-blob b1"></div>
+  <div class="hero-blob b2"></div>
+  <div class="wrap">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow hero-eyebrow">Aguanilé · Escuela Integral de Percusión</p>
+        <h1>Taller de Cumbia<br>Colombiana <span class="accent">🥁💜</span></h1>
+        <p class="lead">Descubrí tu ritmo, animate a tocar y encontrá tu lugar en la música.</p>
+        <div class="hero-actions">
+          <a href="https://wa.link/h29vdd" target="_blank" rel="noopener" class="btn">Quiero sumarme →</a>
+          <span class="hero-note">Sin experiencia previa · Espacio para mujeres y disidencias</span>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-frame">
+          <!-- Reemplazar src por la foto real cuando esté disponible -->
+          <img src="img/hero-cumbia.jpg" alt="Mujeres tocando tambores juntas en un taller de cumbia colombiana de Aguanilé" onerror="this.style.display='none'; this.closest('.hero-frame').style.background='radial-gradient(circle at 35% 30%, var(--violeta) 0%, var(--violeta-deep) 100%)';">
+          <div class="ring-outline"></div>
+        </div>
+        <div class="hero-tag">TU RITMO<br>TE ESPERA</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- ============ HISTORIA / CONEXIÓN: DUDA → TRANSFORMACIÓN ============ -->
+<section class="section transformacion reveal">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow">Antes de empezar</p>
+      <h2>¿Te suenan estas frases?</h2>
+    </div>
+    <div class="duda-grid">
+      <div class="duda-card"><span class="dico">🥁</span><p>"Nunca toqué nada."</p></div>
+      <div class="duda-card"><span class="dico">🥁</span><p>"No tengo ritmo."</p></div>
+      <div class="duda-card"><span class="dico">🥁</span><p>"Me da vergüenza."</p></div>
+      <div class="duda-card"><span class="dico">🥁</span><p>"Soy grande para empezar."</p></div>
+    </div>
+    <div class="giro">
+      <span class="giro-line">Y después de unas clases…
+        <svg viewBox="0 0 46 24" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2,12 C16,2 22,22 44,12" stroke="var(--lima)" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+      </span>
+    </div>
+    <div class="transf-grid">
+      <div class="transf-card"><span class="tico">✨</span><p>"No puedo creer que esté tocando."</p></div>
+      <div class="transf-card"><span class="tico">✨</span><p>"Nunca pensé que me iba a animar."</p></div>
+      <div class="transf-card"><span class="tico">✨</span><p>"Ahora no quiero faltar nunca."</p></div>
+      <div class="transf-card"><span class="tico">✨</span><p>"Salgo de la clase feliz."</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DESDE CERO ============ -->
+<section class="section desdecero reveal">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow" style="color:var(--violeta-deep);">El punto de partida</p>
+      <h2>Un espacio para descubrir el tambor desde cero</h2>
+      <p>Aprendemos ritmos y cantos tradicionales de cumbia colombiana, exploramos la percusión colectiva y construimos comunidad a través de la música.</p>
+    </div>
+    <span class="desdecero-note">No necesitás <strong>experiencia previa.</strong></span>
+  </div>
+</section>
+
+<!-- ============ QUÉ VAS A VIVIR ============ -->
+<section class="section reveal">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow" style="color:var(--verde-deep);">La experiencia</p>
+      <h2>¿Qué vas a vivir en este taller?</h2>
+    </div>
+    <div class="vivir-grid">
+      <div class="vivir-card"><span class="vico">🥁</span><h4>Ritmos tradicionales de cumbia colombiana</h4><p>Las bases que sostienen este género y su historia.</p></div>
+      <div class="vivir-card"><span class="vico">🎶</span><h4>Patrones y sonidos del tambor</h4><p>De lo simple a lo colectivo, paso a paso.</p></div>
+      <div class="vivir-card"><span class="vico">🌿</span><h4>Coordinación y escucha grupal</h4><p>Tocar en grupo es, sobre todo, escuchar al otro.</p></div>
+      <div class="vivir-card"><span class="vico">💜</span><h4>Expresión a través de la música</h4><p>Un canal para soltar el cuerpo y la voz.</p></div>
+      <div class="vivir-card"><span class="vico">✨</span><h4>Aprendizaje colectivo</h4><p>Cada clase suma a la red de quienes ya se animaron.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESPACIO PARA MUJERES Y DISIDENCIAS ============ -->
+<section class="section espacio reveal">
+  <div class="wrap espacio-inner">
+    <span class="eyebrow">Un espacio seguro</span>
+    <h2>Un espacio pensado para mujeres y disidencias</h2>
+    <p class="lead-esp">La escucha, el respeto y el trabajo colectivo son parte de cada clase.</p>
+    <div class="espacio-tags">
+      <span>Escucha activa</span>
+      <span>Respeto mutuo</span>
+      <span>Trabajo colectivo</span>
+      <span>Sin jerarquías</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ ESTE TALLER ES PARA VOS SI ============ -->
+<section class="section paravos reveal">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow" style="color:var(--violeta-deep);">¿Es para mí?</p>
+      <h2>Este taller es para vos si...</h2>
+    </div>
+    <div class="paravos-grid">
+      <div class="paravos-item"><span class="star">✨</span><p>Querés probar un instrumento</p></div>
+      <div class="paravos-item"><span class="star">✨</span><p>Siempre tuviste curiosidad por tocar</p></div>
+      <div class="paravos-item"><span class="star">✨</span><p>Pensás que no tenés ritmo</p></div>
+      <div class="paravos-item"><span class="star">✨</span><p>Buscás una actividad creativa</p></div>
+      <div class="paravos-item" style="border-bottom:none;"><span class="star">✨</span><p>Querés conectar con otras personas</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ INFO DEL TALLER ============ -->
+<section class="section info-block reveal" id="info">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow" style="color:var(--violeta-deep);">Datos del encuentro</p>
+      <h2>Información del taller</h2>
+    </div>
+    <div class="info-card">
+      <div class="info-col">
+        <h3>Cuándo y dónde</h3>
+        <div class="info-row"><span class="ic">📍</span><p>Agronomía, CABA<span>Dirección exacta al confirmar inscripción</span></p></div>
+        <div class="info-row"><span class="ic">🕚</span><p>Sábados 11:30 hs<span>Clases semanales</span></p></div>
+        <div class="info-row"><span class="ic">🥁</span><p>Clases grupales<span>Aprendizaje colectivo</span></p></div>
+      </div>
+      <div class="info-extra">
+        <div class="pill-info"><span>🥁</span> No necesitás traer instrumento</div>
+        <div class="pill-info"><span>💜</span> Espacio para mujeres y disidencias</div>
+      </div>
+    </div>
+
+    <div class="pago-card">
+      <div class="pago-col">
+        <h3>Inversión</h3>
+        <div class="precio-row">
+          <p class="plabel">Mensual<span>4 clases por mes</span></p>
+          <p class="pamount">$60.000</p>
+        </div>
+        <div class="precio-row">
+          <p class="plabel">Clase de prueba<span>Para conocer el taller</span></p>
+          <p class="pamount">$20.000</p>
+        </div>
+      </div>
+      <div class="pago-col">
+        <h3>Datos para transferir</h3>
+        <div class="banco-box">
+          <span class="blabel">Alias</span>
+          <p class="bvalue">aguanile</p>
+          <span class="blabel">CVU</span>
+          <p class="bvalue">0000003100093016848041</p>
+          <span class="blabel">Titular</span>
+          <p class="bvalue">Vanesa Paula Aguilar</p>
+        </div>
+      </div>
+      <div class="pago-col pago-note-col">
+        <p>Una vez hecho el pago, confirmá tu lugar por WhatsApp</p>
+        <a href="https://wa.link/h29vdd" target="_blank" rel="noopener" class="btn">Confirmar por WhatsApp →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section reveal">
+  <div class="wrap">
+    <div class="section-head center">
+      <p class="eyebrow" style="color:var(--verde-deep);">Antes de sumarte</p>
+      <h2>Preguntas frecuentes</h2>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q">¿Necesito saber música? <span class="plus">+</span></button>
+        <div class="faq-a"><p>No. El taller está pensado para empezar desde cero, sin conocimientos musicales previos.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Tengo que tener ritmo? <span class="plus">+</span></button>
+        <div class="faq-a"><p>No existe eso de "no tener ritmo". El ritmo se entrena y se descubre tocando, clase a clase.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Necesito mi propio tambor? <span class="plus">+</span></button>
+        <div class="faq-a"><p>No, no necesitás traer instrumento. Tenemos todo lo necesario para que puedas tocar desde el primer día.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Soy grande para empezar? <span class="plus">+</span></button>
+        <div class="faq-a"><p>No hay edad límite. A este espacio llegan personas de todas las edades que se animan a probar por primera vez.</p></div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q">¿Cómo son las clases? <span class="plus">+</span></button>
+        <div class="faq-a"><p>Son grupales, prácticas y progresivas: combinan ritmos tradicionales de cumbia, trabajo colectivo y mucha escucha.</p></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA FINAL ============ -->
+<section class="cta-final reveal" id="inscripcion">
+  <div class="wrap cta-inner">
+    <h2>El ritmo aparece cuando te das permiso para probar.</h2>
+    <a href="https://wa.link/h29vdd" target="_blank" rel="noopener" class="btn">Reservar mi lugar →</a>
+    <div class="cta-cupos">Cupos limitados</div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo"><span class="dot" style="background:var(--lima);"></span>AGUANILÉ</div>
+  <p>Escuela Integral de Percusión · Agronomía, CABA</p>
+</footer>
+
+<script>
+// Reveal on scroll
+const observer = new IntersectionObserver((entries)=>{
+  entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); } });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
+
+// FAQ accordion
+document.querySelectorAll('.faq-item').forEach(item=>{
+  const q = item.querySelector('.faq-q');
+  const a = item.querySelector('.faq-a');
+  q.addEventListener('click', ()=>{
+    const isOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item.open').forEach(other=>{
+      if(other!==item){
+        other.classList.remove('open');
+        other.querySelector('.faq-a').style.maxHeight = null;
+      }
+    });
+    if(isOpen){
+      item.classList.remove('open');
+      a.style.maxHeight = null;
+    } else {
+      item.classList.add('open');
+      a.style.maxHeight = a.scrollHeight + 'px';
+    }
+  });
+});
+</script>
+
+</body>
+</html>
