@@ -184,7 +184,7 @@ a{color:inherit;text-decoration:none;}
 .hero-note{font-size:0.88rem; font-weight:500; color:var(--violeta-deep);}
 
 /* Visual del hero: ronda de círculos / cuerpos en movimiento, ilustrado */
-.hero-visual{position:relative; aspect-ratio:1/1;}
+.hero-visual{position:relative; aspect-ratio:1/1; min-height:280px;}
 .ronda-frame{
   position:absolute; inset:0;
   border-radius:50%;
@@ -231,7 +231,7 @@ a{color:inherit;text-decoration:none;}
 
 @media (max-width:880px){
   .hero-grid{grid-template-columns:1fr; gap:56px;}
-  .hero-visual{max-width:340px; margin:0 auto;}
+  .hero-visual{width:100%; max-width:340px; margin:0 auto;}
   .hero{padding-top:128px;}
 }
 
@@ -411,7 +411,7 @@ a{color:inherit;text-decoration:none;}
 .experiencia-text p{font-size:1.1rem; max-width:460px; color:rgba(254,248,236,0.82); margin-bottom:16px;}
 @media (max-width:880px){
   .experiencia-grid{grid-template-columns:1fr; gap:44px;}
-  .experiencia-visual{max-width:300px; margin:0 auto;}
+  .experiencia-visual{width:100%; max-width:300px; margin:0 auto;}
 }
 
 /* ============ INFO DEL TALLER ============ */
